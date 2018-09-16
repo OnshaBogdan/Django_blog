@@ -41,17 +41,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'users_list_url' %}">Users</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-        {% block header-options %}
 
+        </ul>
+        {% if request.user.is_authenticated %}
         <form class="form-inline my-2 my-lg-0" action="{% url 'posts_list_url'%}">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
-        {% endblock %}
+        {% else %}
+        <a href=" {% url 'user_sign_up_url' %} " class="btn btn-outline-secondary" role="button" style="margin-right:20px;" >Sign up</a>
+
+        <a href=" {% url 'user_sign_up_url' %} " class="btn btn-outline-secondary" role="button" style="margin-right:20px;" >Sign in</a>
+        {% endif %}
+
+
+
+
     </div>
 </nav>
 <div class="container mt-3">
@@ -62,12 +67,10 @@
             {% endblock %}
             {% if is_paginated %}
             <nav aria-label="...">
-                <ul class="pagination">
+                <ul class="pagination pagination-centered">
                     <li class="page-item {%if not prev_url %}disabled{% endif %}">
                         <a class="page-link" href="{{ prev_url }}" tabindex="-1">Previous</a>
                     </li>
-
-
 
 
                     {% for n in page_object.paginator.page_range %}
@@ -75,7 +78,7 @@
                     <li class="page-item active">
                         <a class="page-link" href="#">{{n}} <span class="sr-only">{{n}}</span></a>
                     </li>
-                    {% elif  n > page_object.number|add:-3 and n < page_object.number|add:3 %}
+                    {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}
 
 
                     <li class="page-item">
@@ -102,20 +105,6 @@
 </div>
 {% endif %}
 
-
-<div class="card text-center">
-    <div class="card-header">
-        Featured
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Creaated by Onsha</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go nahui</a>
-    </div>
-    <div class="card-footer text-muted">
-        2018
-    </div>
-</div>
 
 </body>
 </html>
