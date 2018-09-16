@@ -1,0 +1,15 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+    {{ user.username }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">User "{{ user.username }}" info:</h1>
+
+    <h3>Username - {{user.username}}</h3>
+    <h3>Email - {{user.email}}</h3>
+    <h3>First Name - {{user.first_name}}</h3>
+    <h3>Last Name - {{user.last_name}}</h3>
+    <h3> Password - {{user.password}}</h3>
+{% endblock %}

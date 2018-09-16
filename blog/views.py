@@ -57,6 +57,23 @@ class TagDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
     raise_exception = True
 
 
+class UserCreate(ObjectCreateMixin, View):
+    model = BlogUser
+    model_form = UserForm
+    template = 'blog/user_sign_up_form.html'
+
+
+class UserDetail(View):
+
+    def get(self, request, id):
+        obj = get_object_or_404(BlogUser, id=id)
+        return render(request, 'blog/user_detail.html', context={
+            'user': obj,
+            'admin_object': obj,
+            'detail': True}
+                      )
+
+
 def posts_list(request):
     search_query = request.GET.get('search', '')
     page_number = request.GET.get('page', 1)
@@ -82,10 +99,15 @@ def posts_list(request):
     return render(request, 'blog/index.html', context=context)
 
 
+# def login(request):
+#   return render(request, 'blog/user_sign_up_form.html')
+
+
 def tags_list(request):
     tags = Tag.objects.all()
     return render(request, 'blog/tags_list.html', context={'tags': tags})
 
 
-
-
+def users_list(request):
+    users = BlogUser.objects.all()
+    return render(request, 'blog/users_list.html', context={'users': users})

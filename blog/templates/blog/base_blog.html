@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
-
+{%if user.is_authenticated %}
+    {% block header-options%}
+        <button class="btn btn-secondary">Бутон</button>
+    {% endblock %}
+{% endif %}
 {% block admin-panel %}
+
 
 
 <!-- Example single danger button -->

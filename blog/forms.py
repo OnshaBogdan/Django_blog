@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tag,Post
+from .models import *
 from django.core.exceptions import ValidationError
 
 
@@ -39,3 +39,16 @@ class PostForm(forms.ModelForm):
             if new_slug == 'create':
                 raise ValidationError("Slug may not be create")
             return new_slug
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = BlogUser
+        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        vidgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'})
+        }

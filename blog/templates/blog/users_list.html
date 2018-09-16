@@ -1,0 +1,14 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+    Users list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">Users:</h1>
+
+    {% for user in users %}
+        <!--<h3><a href="{{ tag.get_absolute_url }}"> {{ tag.title }}</a></h3>-->
+        <h3><a href="{{ user.get_absolute_url }}"> {{ user.username}}</a> -- id:{{user.id}}</h3>
+    {% endfor %}
+{% endblock %}

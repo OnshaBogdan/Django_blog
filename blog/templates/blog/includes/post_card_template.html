@@ -1,7 +1,13 @@
 <div class="card mb-5">
+    {% if post.author is not None %}
     <div class="card-header">
-        {{ post.date_pub }}
+        {{post.author}} at {{ post.date_pub }}
     </div>
+    {% else %}
+    <div class="card-header">
+         {{ post.date_pub }}
+    </div>
+    {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text"> {{ post.body|truncatewords:50 }}</p>
