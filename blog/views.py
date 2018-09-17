@@ -1,8 +1,9 @@
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator
 from django.db.models import Q
-
+from .models import BlogUser
 from .utils import *
 from .forms import *
 
@@ -99,8 +100,20 @@ def posts_list(request):
     return render(request, 'blog/index.html', context=context)
 
 
-# def login(request):
-#   return render(request, 'blog/user_sign_up_form.html')
+def sign_in(request):
+    if request.method == 'GET':
+        return render(request, 'blog/user_sign_in_form.html')
+    else:
+        username = request.POST.get('username', False)
+        password = request.POST.get('password', False)
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('posts_list_url')
+        else:
+            return render(request, 'blog/user_sign_in_form.html')
 
 
 def tags_list(request):
