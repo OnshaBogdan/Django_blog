@@ -1,6 +1,7 @@
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import BlogUser
@@ -63,6 +64,18 @@ class UserCreate(ObjectCreateMixin, View):
     model_form = UserForm
     template = 'blog/user_sign_up_form.html'
 
+    def post(self, request):
+        bound_form = self.model_form(request.POST)
+
+        if bound_form.is_valid():
+            password = request.POST.get('password', False)
+            new_object = bound_form.save()
+            User.set_password(new_object, password)
+            new_object.save()
+
+            return redirect(new_object)
+        return render(request, self.template, context={'form': bound_form})
+
 
 class UserDetail(View):
 
@@ -114,6 +127,19 @@ def sign_in(request):
             return redirect('posts_list_url')
         else:
             return render(request, 'blog/user_sign_in_form.html')
+
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'blog/user_sign_up_form.html')
+    else:
+        username = request.POST.get('username', False)
+        first_name = request.POST.get('first_name', False)
+        last_name = request.POST.get('last_name', False)
+        email= request.POST.get('email', False)
+        password = request.POST.get('password', False)
+
+
 
 
 def tags_list(request):

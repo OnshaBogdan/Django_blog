@@ -7,9 +7,6 @@
     bottom: 30px;
     opacity: 0.4;
 }
-.btn{
-margin: 5px 0;
-}
 .admin-panel:hover{
 opacity: 1;
 }
@@ -19,4 +16,3 @@ display: block;
 a.edit, a.delete{
     display:none;
 }
-
