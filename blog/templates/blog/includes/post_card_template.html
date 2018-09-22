@@ -1,3 +1,4 @@
+<link type="text/css" href="{{ STATIC_URL }}css/styles.css" />
 <div class="card mb-5">
     {% if post.author is not None %}
     <div class="card-header">
@@ -11,7 +12,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text"> {{ post.body|truncatewords:50 }}</p>
-        <a href="{{ post.get_absolute_url }}" class="btn btn-light">Read</a>
+        <a href="{{ post.get_absolute_url }}" class="btn btn-light" >Read</a>
     </div>
     {% if post.tags.all %}
         <div class="card-footer text-muted">

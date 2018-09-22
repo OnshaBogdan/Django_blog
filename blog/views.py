@@ -28,6 +28,7 @@ class PostUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
 
 
 class PostDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
+    redirect_view = 'posts_list_url'
     model = Post
     model_form = PostForm
     template = 'blog/post_delete_form.html'
@@ -53,6 +54,7 @@ class TagUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
 
 
 class TagDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
+    redirect_url = 'tags_list_url'
     model = Tag
     model_form = TagForm
     template = 'blog/tag_delete_form.html'
