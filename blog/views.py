@@ -1,6 +1,6 @@
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -18,6 +18,16 @@ class PostCreate(LoginRequiredMixin, ObjectCreateMixin, View):
     model_form = PostForm
     template = 'blog/post_create_form.html'
     raise_exception = True
+
+    def post(self, request):
+        bound_form = self.model_form(request.POST)
+
+        if bound_form.is_valid():
+            new_object = bound_form.save()
+            new_object.author = BlogUser.objects.get(username=request.user.username)
+            new_object.save()
+            return redirect(new_object)
+        return render(request, self.template, context={'form': bound_form})
 
 
 class PostUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
@@ -131,17 +141,9 @@ def sign_in(request):
             return render(request, 'blog/user_sign_in_form.html')
 
 
-def register(request):
-    if request.method == 'GET':
-        return render(request, 'blog/user_sign_up_form.html')
-    else:
-        username = request.POST.get('username', False)
-        first_name = request.POST.get('first_name', False)
-        last_name = request.POST.get('last_name', False)
-        email= request.POST.get('email', False)
-        password = request.POST.get('password', False)
-
-
+def logout_view(request):
+    logout(request)
+    return redirect('posts_list_url')
 
 
 def tags_list(request):

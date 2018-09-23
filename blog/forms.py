@@ -45,10 +45,11 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = BlogUser
         fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        attrs = {'class': 'form-control', 'required': True}
         vidgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'})
+            'username': forms.TextInput(attrs=attrs),
+            'first_name': forms.TextInput(attrs=attrs),
+            'last_name': forms.TextInput(attrs=attrs),
+            'email': forms.EmailInput(attrs=attrs),
+            'password': forms.PasswordInput(attrs=attrs)
         }
