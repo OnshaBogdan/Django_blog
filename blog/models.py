@@ -25,6 +25,7 @@ class Post(models.Model):
     date_pub = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, null=True, default=None)
+    rating = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return self.title
@@ -42,6 +43,12 @@ class Post(models.Model):
         if not self.id:
             self.slug = gen_slug(self.title)
         super().save(*args, **kwargs)
+
+    def like(self):
+        self.rating += 1
+
+    def dislike(self):
+        self.rating -= 1
 
     class Meta:
         ordering = ['-date_pub']
