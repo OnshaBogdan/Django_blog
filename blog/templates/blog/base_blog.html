@@ -5,7 +5,7 @@
 
 
 
-<!-- Example single danger button -->
+
 <div class="btn-group">
     <button type="button" class="btn btn-outline-success dropdown-toggle mt-2" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -18,9 +18,10 @@
     </div>
 </div>
 
-
+{% if user_username == author_username   %}
 <a href="{{ admin_object.get_update_url }}" class="btn btn-outline-secondary edit mt-2"
    style="{% if detail %}display:block;{%endif%}">Edit</a>
 <a href="{{ admin_object.get_delete_url }}" class="btn btn-outline-danger delete mt-2"
    style="{% if detail %}display:block;{%endif%}">Delete</a>
+{% endif %}
 {% endblock %}

@@ -117,9 +117,12 @@
         </div>
     </div>
 </div>
-{% if request.user.is_authenticated and request.user.is_staff %}
+
+{% if request.user.is_authenticated %}
 <div class="admin-panel align-items-center">
+    {% if request.user.is_staff %}
     <a href="/admin/" class="btn btn-outline-info ">Admin</a>
+    {% endif %}
     {% block admin-panel %}
 
     {% endblock %}

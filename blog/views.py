@@ -153,4 +153,4 @@ def tags_list(request):
 
 def users_list(request):
     users = BlogUser.objects.all()
-    return render(request, 'blog/users_list.html', context={'users': users})
+    return render(request, 'blog/users_list.html', context={'users': users, 'count': BlogUser.objects.count()})
