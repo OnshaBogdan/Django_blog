@@ -7,11 +7,11 @@
 
 <!-- Example single danger button -->
 <div class="btn-group">
-    <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+    <button type="button" class="btn btn-outline-success dropdown-toggle mt-2" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
         Create
     </button>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu mt-2">
         <a class="dropdown-item" href="{% url 'post_create_url' %}">Post</a>
         <a class="dropdown-item" href="{% url 'tag_create_url' %}">Tag</a>
 
@@ -19,8 +19,8 @@
 </div>
 
 
-<a href="{{ admin_object.get_update_url }}" class="btn btn-outline-secondary edit"
+<a href="{{ admin_object.get_update_url }}" class="btn btn-outline-secondary edit mt-2"
    style="{% if detail %}display:block;{%endif%}">Edit</a>
-<a href="{{ admin_object.get_delete_url }}" class="btn btn-outline-danger delete"
+<a href="{{ admin_object.get_delete_url }}" class="btn btn-outline-danger delete mt-2"
    style="{% if detail %}display:block;{%endif%}">Delete</a>
 {% endblock %}
