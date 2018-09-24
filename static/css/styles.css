@@ -20,12 +20,37 @@ a.edit, a.delete{
     display:none;
 }
 
+.header-right{
+width:50%;
+position:absolute;
+right:10px;
+align:right;
+text-align:right;
+margin-bottom: 8px;
+margin-top:-4px;
+}
+.header-left{
+width:50%;
+position:absolute;
+left:0px;
+align:left;
+text-align:left;
+background-color:transparent;
+
+}
+.rate{
+position:relative;
+left:20px;
+bottom:5px;
+font-size:110%;
+}
 .dropdown{
 margin-left:10px;
 }
 
-
-
+.card-header{
+height: 40px;
+}
 .navbar fixed-bottom{
 width:100%;
 }
@@ -44,6 +69,7 @@ margin-right:20px;
 .card text-center{
 margin-top:30px;
 }
+
 
 
 
