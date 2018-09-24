@@ -18,7 +18,7 @@
     </div>
 </div>
 
-{% if user_username == author_username   %}
+{% if user_username == author_username or request.user.is_staff %}
 <a href="{{ admin_object.get_update_url }}" class="btn btn-outline-secondary edit mt-2"
    style="{% if detail %}display:block;{%endif%}">Edit</a>
 <a href="{{ admin_object.get_delete_url }}" class="btn btn-outline-danger delete mt-2"
