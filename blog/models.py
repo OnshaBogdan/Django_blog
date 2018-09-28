@@ -46,9 +46,11 @@ class Post(models.Model):
 
     def like(self):
         self.rating += 1
+        self.save()
 
     def dislike(self):
         self.rating -= 1
+        self.save()
 
     class Meta:
         ordering = ['-date_pub']

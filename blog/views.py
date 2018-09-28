@@ -13,6 +13,14 @@ class PostDetail(ObjectDetailMixin, View):
     model = Post
     template = 'blog/post_detail.html'
 
+    def post(self, request, slug):
+        if request.POST.get('plus'):
+            Post.objects.get(slug__iexact=slug).like()
+        else:
+            Post.objects.get(slug__iexact=slug).dislike()
+
+        return ObjectDetailMixin.get(self, request, slug)
+
 
 class PostCreate(LoginRequiredMixin, ObjectCreateMixin, View):
     model_form = PostForm
