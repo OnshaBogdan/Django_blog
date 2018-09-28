@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
 <h1 class="mt-5">
     {{ post.title }}
 </h1>
@@ -13,12 +14,17 @@
     <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
     {% endfor %}
 </h3>
+
+{% if request.user.is_authenticated %}
 <form action="." method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-success" name="plus" value="1">Плюсек</button>
     <button type="submit" class="btn btn-danger" name="minus" value="1">Минусек</button>
 </form>
+{% endif %}
+
 <p>
     {{ post.body }}
 </p>
+
 {% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
+
+import blog
 from .models import BlogUser
 from .utils import *
 from .forms import *
@@ -14,12 +16,18 @@ class PostDetail(ObjectDetailMixin, View):
     template = 'blog/post_detail.html'
 
     def post(self, request, slug):
-        if request.POST.get('plus'):
-            Post.objects.get(slug__iexact=slug).like()
-        else:
-            Post.objects.get(slug__iexact=slug).dislike()
+        post = Post.objects.get(slug__iexact=slug)
+        current_user = BlogUser.objects.get(username=request.user.username)
 
-        return ObjectDetailMixin.get(self, request, slug)
+        try:
+            post.voted_users.get(username=current_user.username)
+        except blog.models.BlogUser.DoesNotExist:
+            if request.POST.get('plus'):
+                post.like(current_user)
+            else:
+                post.dislike(current_user)
+        finally:
+            return ObjectDetailMixin.get(self, request, slug)
 
 
 class PostCreate(LoginRequiredMixin, ObjectCreateMixin, View):

@@ -24,8 +24,9 @@ class Post(models.Model):
     body = models.TextField(blank=True, db_index=True)
     date_pub = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
-    author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, null=True, default=None)
+    author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='author', null=True, default=None)
     rating = models.IntegerField(default=0, blank=True)
+    voted_users = models.ManyToManyField(BlogUser, blank=True, default=None, related_name='voted_users')
 
     def __str__(self):
         return self.title
@@ -44,12 +45,14 @@ class Post(models.Model):
             self.slug = gen_slug(self.title)
         super().save(*args, **kwargs)
 
-    def like(self):
+    def like(self, user):
         self.rating += 1
+        self.voted_users.add(user)
         self.save()
 
-    def dislike(self):
+    def dislike(self, user):
         self.rating -= 1
+        self.voted_users.add(user)
         self.save()
 
     class Meta:
@@ -59,7 +62,6 @@ class Post(models.Model):
 class Tag(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
-
 
     def __str__(self):
         return '{}'.format(self.title)
