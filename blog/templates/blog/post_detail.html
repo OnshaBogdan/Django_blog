@@ -15,12 +15,19 @@
     {% endfor %}
 </h3>
 
-{% if request.user.is_authenticated %}
+{% if request.user.is_authenticated and not voted%}
+<div class="container voteform">
 <form action="." method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-success" name="plus" value="1">Плюсек</button>
-    <button type="submit" class="btn btn-danger" name="minus" value="1">Минусек</button>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="submit" class="btn btn-success btn-sm" name="plus" value="1">&nbsp;<strong>+</strong>&nbsp;</button>
+        <button type="submit" class="btn btn-danger btn-sm" name="minus" value="1">&nbsp;<strong>–</strong>&nbsp;</button>
+
+    </div>
+
 </form>
+</div>
 {% endif %}
 
 <p>

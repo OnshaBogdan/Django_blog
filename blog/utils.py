@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 
+import blog
 from .models import *
 
 
@@ -17,6 +18,11 @@ class ObjectDetailMixin:
                    'detail': True, }
         if self.model == Post:
             context['author_username'] = obj.author.username
+            try:
+                obj.voted_users.get(username=request.user.username)
+                context['voted'] = True
+            except blog.models.BlogUser.DoesNotExist:
+                context['voted'] = False
         return render(request, self.template, context=context)
 
 
