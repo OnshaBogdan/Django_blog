@@ -11,6 +11,8 @@ def gen_slug(s):
 
 
 class BlogUser(User):
+    rating = models.IntegerField(default=0, blank=True)
+
     def __str__(self):
         return self.username
 

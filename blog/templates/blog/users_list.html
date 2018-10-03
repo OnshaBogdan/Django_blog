@@ -1,13 +1,29 @@
 {% extends 'blog/base_blog.html' %}
+{% load users_list_extras %}
 
 {% block title %}
-    Users list - {{ block.super }}
+Users list - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-5">There are {{ count }} Users in database:</h1>
+<h1 class="mb-5">Top 10 users by rating:</h1>
 
-    {% for user in users %}
-        <h3><a href="{{ user.get_absolute_url }}"> {{ user.username}}</a> -- id:{{user.id}}</h3>
+<table class="table">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Number of posts</th>
+    </tr>
+    {% for index, user in users|order %}
+    <tr>
+        <th scope="col">{{ index }}</th>
+        <th scope="col">{{user.username}}</th>
+        <th scope="col">{{user.rating}}</th>
+        <th scope="col"></th>
+    </tr>
     {% endfor %}
+
+</table>
+
 {% endblock %}
