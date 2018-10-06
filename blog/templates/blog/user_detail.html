@@ -1,15 +1,40 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-    {{ user.username }} - {{ block.super }}
+{{ user.username }} - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-5">User "{{ user.username }}" info:</h1>
 
-    <h3>Username - {{user.username}}</h3>
-    <h3>Email - {{user.email}}</h3>
-    <h3>First Name - {{user.first_name}}</h3>
-    <h3>Last Name - {{user.last_name}}</h3>
-    <h3> Password - {{user.password}}</h3>
+<h1 class="mb-5">User info:</h1>
+<table class="table  table-bordered">
+    <tr>
+        <th>Username</th>
+        <th>{{user.username}}</th>
+    </tr>
+    <tr>
+        <th>Rate</th>
+        <th>{{user.rating}}</th>
+    </tr>
+    <tr>
+        <th>First name</th>
+        <th>{{user.first_name|title}}</th>
+    </tr>
+    <tr>
+        <th>Last name</th>
+        <th>{{user.last_name|title}}</th>
+    </tr>
+    {% if request.user.username == user.username %}
+        <tr>
+        <th>Email</th>
+        <th>{{user.email}}</th>
+    </tr>
+    {%endif%}
+</table>
+
+
+
+
+
+
 {% endblock %}
