@@ -168,5 +168,5 @@ def tags_list(request):
 
 
 def users_list(request):
-    users = BlogUser.objects.order_by('-rating')
+    users = BlogUser.objects.order_by('-rating')[:10]
     return render(request, 'blog/users_list.html', context={'users': users})

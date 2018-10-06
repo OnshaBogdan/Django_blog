@@ -16,6 +16,14 @@ class BlogUser(User):
     def __str__(self):
         return self.username
 
+    def like(self):
+        self.rating += 1
+        self.save()
+
+    def dislike(self):
+        self.rating -= 1
+        self.save()
+
     def get_absolute_url(self):
         return reverse('user_detail_url', kwargs={'id': self.id})
 
@@ -50,11 +58,13 @@ class Post(models.Model):
     def like(self, user):
         self.rating += 1
         self.voted_users.add(user)
+        self.author.like()
         self.save()
 
     def dislike(self, user):
         self.rating -= 1
         self.voted_users.add(user)
+        self.author.dislike()
         self.save()
 
     class Meta:

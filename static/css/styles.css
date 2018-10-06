@@ -69,11 +69,14 @@ margin-right:20px;
 .card text-center{
 margin-top:30px;
 }
-.voteform{
 
+.voteform{
 position:absolute;
 left: -100px;
 top:65px;
+}
+tr th a {
+    color: #212529 !important;
 }
 
 

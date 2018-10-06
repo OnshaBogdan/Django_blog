@@ -13,14 +13,12 @@ Users list - {{ block.super }}
         <th scope="col">#</th>
         <th scope="col">Username</th>
         <th scope="col">Rate</th>
-        <th scope="col">Number of posts</th>
     </tr>
     {% for index, user in users|order %}
     <tr>
         <th scope="col">{{ index }}</th>
-        <th scope="col">{{user.username}}</th>
+        <th scope="col"><a href={{user.get_absolute_url}}>{{user.username}}</a></th>
         <th scope="col">{{user.rating}}</th>
-        <th scope="col"></th>
     </tr>
     {% endfor %}
 
